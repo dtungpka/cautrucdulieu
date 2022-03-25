@@ -114,7 +114,7 @@ Bai5() {
 //----C
 //--M--
 //
-enum direction {
+ enum direction {
 	Stop = 0,
 	Up = 1,
 	Right = 2,
@@ -123,16 +123,191 @@ enum direction {
 	
 };
 
-unsigned int playGround[100][100];
+int cat1[2] = { 0,0 };
+int cat2[2] = { 0,0 };
+int mouse[2] = { 0,0 };
+int width, height;
+
+//initialize the cats and mouse position
+void initPosition(){
+printf("Nhap toa do meo 1: ");
+scanf("%d %d", &cat1[0], &cat1[1]);
+printf("Nhap toa do meo 2: ");
+scanf("%d %d", &cat2[0], &cat2[1]);
+printf("Nhap toa do chuot: ");
+scanf("%d %d", &mouse[0], &mouse[1]);
+}
+
+
+//check possible move
+bool checkMove(int x, int y, int direction) {
+	switch (direction)
+	{
+	case Up:
+		if (y - 1 >= 0)
+			return true;
+		break;
+	case Right:
+		if (x + 1 < width)
+			return true;
+		break;
+	case Left:
+		if (x - 1 >= 0)
+			return true;
+		break;
+	case Down:
+		if (y + 1 < height)
+			return true;
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
+//Check if cat1, cat2, mouse is in the same position, if cat 1 is in the same position with mouse return 1, if cat 2 is in the same position with mouse return 2, if cat 1 in the same position with cat 2 return 3.
+int checkCat() {
+	if (cat1[0] == mouse[0] && cat1[1] == mouse[1]) {
+		printf("Meo 1 bat duoc chuot\n");
+		return 1;
+	}
+	if (cat2[0] == mouse[0] && cat2[1] == mouse[1]) {
+		printf("Meo 2 bat duoc chuot\n");
+		return 2;
+	}
+	if (cat1[0] == cat2[0] && cat1[1] == cat2[1]) {
+		printf("Chuot chay duoc khoi meo\n");
+		return 3;
+	}
+	return 0;
+	
+}
+//get the direction the cat need to move
+enum direction getDirection(int x, int y) {
+	//get the mouse position
+	int mouseX = mouse[0];
+	int mouseY = mouse[1];
+	//if the mouse is above the cat
+	if (mouseY > y) {
+		if (mouseX == x)
+			return Up;
+		else if (mouseX > x)
+			return Right;
+		else
+			return Left;
+	} else if (mouseY < y) {
+		if (mouseX == x)
+			return Down;
+		else if (mouseX > x)
+			return Right;
+		else
+			return Left;
+	}
+	else {
+		if (mouseX > x)
+			return Right;
+		else
+			return Left;
+	}
+
+	
+}
+//move the cat
+void moveCat(int *x, int *y,enum direction direction) {
+	switch (direction)
+	{
+	case Up:
+		*y += 1;
+		break;
+	case Right:
+		*x += 1;
+		break;
+	case Left:
+		*x -= 1;
+		break;
+	case Down:
+		*y -= 1;
+		break;
+	default:
+		break;
+	}
+}
+//move the mouse randomly
+void moveMouse() {
+	int x = mouse[0];
+	int y = mouse[1];
+	if (x == cat1[0] && y == cat1[1]) {
+
+		return;
+	}
+	if (x == cat2[0] && y == cat2[1]) {
+		return;
+	}
+	if (!checkMove(x, y, Up) && !checkMove(x, y, Right) && !checkMove(x, y, Left) && !checkMove(x, y, Down)) {
+		return;
+	}
+	int direction = rand() % 4 + 1;
+	while (!checkMove(x, y, direction)) {
+		direction = rand() % 4 + 1;
+	}
+	switch (direction)
+	{
+	case Up:
+		mouse[1]--;
+		break;
+	case Right:
+		mouse[0]++;
+		break;
+	case Left:
+		mouse[0]--;
+		break;
+	case Down:
+		mouse[1]++;
+		break;
+	default:
+		break;
+	}
+}
+//Print the play ground, if cat print M, if mouse print C, else print -
+void printPlayGround() {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			if (i == cat1[1] && j == cat1[0])
+				printf("M");
+			else if (i == cat2[1] && j == cat2[0])
+				printf("M");
+			else if (i == mouse[1] && j == mouse[0])
+				printf("C");
+			else
+				printf("-");
+		}
+		printf("\n");
+	}
+}
+
 
 Bai6() {
-	
+	int turn = 1;
+	printf("Nhap chieu dai: ");
+	scanf("%d", &width);
+	printf("Nhap chieu rong: ");
+	scanf("%d", &height);
+	initPosition();
+	printPlayGround();
+	while (checkCat() == 0) {
+		printf("Turn: %d\n\n", turn);
+		moveCat(&cat1[0], &cat1[1], getDirection(cat1[0], cat1[1]));
+		moveCat(&cat2[0], &cat2[1], getDirection(cat2[0], cat2[1]));
+		moveMouse();
+		printPlayGround();
+		turn++;
+	}
 
 
 }
 int main()
 {
-	Bai5();
+	Bai6();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
