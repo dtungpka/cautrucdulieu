@@ -4,7 +4,7 @@
 #include <conio.h>
 #pragma warning(disable:4996)
 #pragma warning(disable:6031)
-//TODO: Nhập một số từ bàn phím và kiểm tra xem số đó có phải là số nguyên tố hay không.
+//DONE: Nhập một số từ bàn phím và kiểm tra xem số đó có phải là số nguyên tố hay không.
 int bai1()
 {
 	int n,i,flag=0;

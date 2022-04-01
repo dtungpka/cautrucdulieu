@@ -9,7 +9,18 @@
 #include "commonmath.h"
 #pragma warning(disable:4996)
 #pragma warning(disable:6031)
-
+#pragma region  Bai_tap_1_den_5
+void Bai1() {
+	printf("Nhap n: ");
+	int n,sum=0;
+	scanf("%d", &n);
+	
+	for (int i = 1; i < n; i++)
+	{
+		sum += pow(i % 2 ? 0 : i, 2);
+	}
+	printf("Tong binh phuong so le tu 1 den %d la %d", n, sum);
+}
 void Bai2() {
 	int a, b, a_, b_;
 	printf("Nhap a:");
@@ -31,18 +42,17 @@ void Bai2() {
 void Bai3() {
 	int time[4] = { 0,0,0,0 }; // HH,MM,SS,AM/PM (0/1)
 	bool AM = false;
-	printf("Nhap gio theo dinh dang HH:MM:SS AM  ");
-
+	printf("Nhap gio theo dinh dang HH:MM:SS AM/PM  ");
 	int x = 0;
 	char stream;
 	do
 	{
-
 		scanf(x < 3 ? "%d%c" : "%c%c", & time[x], & stream); // 1_2_3.. \n=break
 		x++;
 	} while (stream != '\n' && x < 4);
-
+	//Convert
 	int time24 = time[3] == 'A' ? time[0] : time[0] + 12;
+	//Print the ans
 	printf("%02d:%02d:%02d %cM -> %02d:%02d:%02d", time[0], time[1], time[2], time[3], time24, time[1], time[2]);
 	getch();
 }
@@ -108,19 +118,20 @@ Bai5() {
 	printf("%d -> %d\n", point, roundPoint(point));
 }
 
-
+#pragma endregion
 //Cats and mouse! 2D plane
 //-C---
 //----C
 //--M--
 //
- enum direction {
+#pragma region Bai_6_
+enum direction {
 	Stop = 0,
 	Up = 1,
 	Right = 2,
 	Left = 3,
 	Down = 4
-	
+
 };
 
 int cat1[2] = { 0,0 };
@@ -130,7 +141,7 @@ int width, height;
 
 //initialize the cats and mouse position, check if it in range of the plane
 void init() {
-	intialize:
+intialize:
 	printf("Nhap vi tri chuot: ");
 	scanf("%d %d", &mouse[0], &mouse[1]);
 	printf("Nhap vi tri meo 1: ");
@@ -149,13 +160,14 @@ void init() {
 		printf("Meo 2 khong nam trong vung!\n");
 		goto intialize;
 	}
-	
+
 }
 
 
 
-
-//check possible move
+/// <summary>
+/// Check the possible move at x,y
+/// </summary>
 bool checkMove(int x, int y, int direction) {
 	switch (direction)
 	{
@@ -181,7 +193,10 @@ bool checkMove(int x, int y, int direction) {
 	return false;
 }
 
- 
+/// <summary>
+/// Check if the cats cought the mouse or the mouse escaped th cats
+/// </summary>
+/// <returns>0 if none of the above statement occur</returns>
 int checkCat() {
 	if (cat1[0] == mouse[0] && cat1[1] == mouse[1]) {
 		printf("Meo 1 bat duoc chuot\n");
@@ -196,7 +211,7 @@ int checkCat() {
 		return 3;
 	}
 	return 0;
-	
+
 }
 //get the direction the cat need to move
 enum direction getDirection(int x, int y) {
@@ -211,7 +226,8 @@ enum direction getDirection(int x, int y) {
 			return Right;
 		else
 			return Left;
-	} else if (mouseY > y) {
+	}
+	else if (mouseY > y) {
 		if (mouseX == x)
 			return Down;
 		else if (mouseX > x)
@@ -226,10 +242,10 @@ enum direction getDirection(int x, int y) {
 			return Left;
 	}
 
-	
+
 }
 //move the cat
-void moveCat(int *x, int *y,enum direction direction) {
+void moveCat(int* x, int* y, enum direction direction) {
 	switch (direction)
 	{
 	case Up:
@@ -304,8 +320,7 @@ void printPlayGround() {
 		printf("\n");
 	}
 }
-
-
+#pragma endregion
 Bai6() {
 	int turn = 1;
 	int catSpeed = 1;
@@ -332,29 +347,40 @@ Bai6() {
 		printPlayGround();
 		turn++;
 	}
-	
+
 
 }
-void getUserVar(int *a,int*b, int *x, int *y, int *z){
+/// <summary>
+/// Get the variable for Bai7()
+/// </summary>
+void getUserVar(int* a, int* b, int* x, int* y, int* z) {
 
-printf("Nhap so luong qua trang a=");
-scanf("%d",a);
+	printf("Nhap so luong qua trang a=");
+	scanf("%d", a);
 
-printf("Nhap so luong qua den b=");
-scanf("%d",b);
+	printf("Nhap so luong qua den b=");
+	scanf("%d", b);
 
-printf("Nhap gia thanh trang x=");
-scanf("%d",x);
+	printf("Nhap gia thanh trang x=");
+	scanf("%d", x);
 
-printf("Nhap gia thanh den y=");
-scanf("%d",y);
+	printf("Nhap gia thanh den y=");
+	scanf("%d", y);
 
-printf("Nhap gia thanh doi trang <=> den z=");
-scanf("%d",z);
+	printf("Nhap gia thanh doi trang <=> den z=");
+	scanf("%d", z);
 }
-int calculateMinSum(int a, int b, int x, int y, int z,int*mode) {
-	int sumTemp=(a * x < b* y ? (a + z) * y : (b + z) * x)+(a * x < b* y ? a * x : b * y);
-	int sum = a*x + b*y;
+/// <summary>
+///	Calculate the minimum possible to sum x and y with x,y can convert with cost z
+/// </summary>
+/// <param name="a">Ammount of x</param>
+/// <param name="b">Ammount of y</param>
+/// <param name="z">Cost to convert x to y or y to x</param>
+/// <param name="mode">The pointer of a interger, return 1 if convert x to y, 2 if y to x and 0 if no convert</param>
+/// <returns>return the sum</returns>
+int calculateMinSum(int a, int b, int x, int y, int z, int* mode) {
+	int sumTemp = (a * x < b* y ? (a + z) * y : (b + z) * x) + (a * x < b* y ? a * x : b * y);
+	int sum = a * x + b * y;
 	*mode = sum > sumTemp ? a * x < b* y ? 1 : 2 : 0;
 	return (sum < sumTemp ? sum : sumTemp);
 }
@@ -366,7 +392,7 @@ void Bai7() {
 	int z;
 	getUserVar(&a, &b, &x, &y, &z);
 	int mode = 0, ans = calculateMinSum(a, b, x, y, z, &mode);
-	printf("So tien toi thieu de mua %d qua trang va %d qua den la %d, can phai mua ",a,b,ans);
+	printf("So tien toi thieu de mua %d qua trang va %d qua den la %d, can phai mua ", a, b, ans);
 	if (mode == 1)
 	{
 		printf("%d qua trang va doi %d qua trang sang den.\n", a + b, b);
@@ -379,40 +405,42 @@ void Bai7() {
 	{
 		printf("%d qua den va  %d qua trang.\n", a, b);
 	}
-	
-//calculate the minimum sum of a*x + b*y
+
 }
 int main()
 {
-	printf("Nhap bai can chay: ");
-	int bai;
-	scanf("%d", &bai);
-	switch (bai)
-	{
-	case 1:
-		Bai1();
-		break;
-	case 2:
-		Bai2();
-		break;
-	case 3:
-		Bai3();
-		break;
-	case 4:
-		Bai4();
-		break;
-	case 5:
-		Bai5();
-		break;
-	case 6:
-		Bai6();
-		break;
-	case 7:
-		Bai7();
-		break;
-	default:
-	printf("Khong co bai nay");
-		break;
+	
+	int bai=-1;
+	while (bai != 0) {
+		printf("\nNhap bai can chay: ");
+		scanf("%d", &bai);
+		switch (bai)
+		{
+		case 1:
+			Bai1();
+			break;
+		case 2:
+			Bai2();
+			break;
+		case 3:
+			Bai3();
+			break;
+		case 4:
+			Bai4();
+			break;
+		case 5:
+			Bai5();
+			break;
+		case 6:
+			Bai6();
+			break;
+		case 7:
+			Bai7();
+			break;
+		default:
+			printf("Khong co bai nay");
+			break;
+		}
 	}
 	return 0;
 }

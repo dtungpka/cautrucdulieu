@@ -1,7 +1,11 @@
 #pragma once
 #include <math.h>
 #include <stdbool.h>
-//Check if n is prime number
+
+/// <summary>
+/// Check if n is prime number
+/// </summary>
+/// <param name="n"> </param>
 bool isPrime(int n) {
 	
 	for (int i = 2; i <= sqrt(n); i++)
@@ -10,7 +14,12 @@ bool isPrime(int n) {
 	}
 	return false;
 };
-//find the largest value in a list and return it 
+
+/// <summary>
+/// Find the largest value in a list and return it
+/// </summary>
+/// <param name="*p">The pointer of the first value in list </param>
+/// <param name="n"> Size of the list</param> 
 int findmax(int *p,int n) {
 
 	int max = *p;
@@ -22,7 +31,11 @@ int findmax(int *p,int n) {
 	}
 	return max;
 };
-//find the smallest value in a list and return it 
+/// <summary>
+/// Find the smallest value in a list and return it 
+/// </summary>
+/// <param name="*p">The pointer of the first value in list </param>
+/// <param name="n"> Size of the list</param> 
 int findmin(int* p,int n) {
 	int min = *p;
 	int* p_ = p;
@@ -33,7 +46,12 @@ int findmin(int* p,int n) {
 	}
 	return min;
 };
-//create a function that take a list of numbers and return the average of the numbers
+
+/// <summary>
+/// Return the average value of all value in a list
+/// </summary>
+/// <param name="*p">The pointer of the first value in list </param>
+/// <param name="n"> Size of the list</param> 
 double findaverage(int* p[], int n) {
 	double sum = 0;
 	for (int i = 0; i < n; i++)
