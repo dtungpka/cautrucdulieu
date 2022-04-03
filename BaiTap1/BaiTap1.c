@@ -105,7 +105,6 @@ void Bai4() {
 int roundPoint(int point) {
 	if (point < 38) return point;
 	return point % 5 > 2 ? point + (5 - point % 5) : point;
-
 }
 int nhapBai5() {
 	int point;
@@ -331,7 +330,7 @@ Bai6() {
 	printf("So buoc meo co the di chuyen: ");
 	scanf("%d", &catSpeed);
 	init();
-	printPlayGround();
+	//printPlayGround();
 	while (checkCat() == 0) {
 		printf("Turn: %d\n\n", turn);
 		for (int i = 0; i < catSpeed; i++)
@@ -344,12 +343,16 @@ Bai6() {
 				moveCat(&cat2[0], &cat2[1], cat2_);
 		}
 		moveMouse();
-		printPlayGround();
+		
 		turn++;
 	}
-
+	//printPlayGround();
 
 }
+
+
+
+
 /// <summary>
 /// Get the variable for Bai7()
 /// </summary>
@@ -373,10 +376,10 @@ void getUserVar(int* a, int* b, int* x, int* y, int* z) {
 /// <summary>
 ///	Calculate the minimum possible to sum x and y with x,y can convert with cost z
 /// </summary>
-/// <param name="a">Ammount of x</param>
-/// <param name="b">Ammount of y</param>
-/// <param name="z">Cost to convert x to y or y to x</param>
-/// <param name="mode">The pointer of a interger, return 1 if convert x to y, 2 if y to x and 0 if no convert</param>
+/// <param name="a:">Ammount of x</param>
+/// <param name="b:">Ammount of y</param>
+/// <param name="z:">Cost to convert x to y or y to x</param>
+/// <param name="mode:">The pointer of a interger, return 1 if convert x to y, 2 if y to x and 0 if no convert</param>
 /// <returns>return the sum</returns>
 int calculateMinSum(int a, int b, int x, int y, int z, int* mode) {
 	int sumTemp = (a * x < b* y ? (a + z) * y : (b + z) * x) + (a * x < b* y ? a * x : b * y);
