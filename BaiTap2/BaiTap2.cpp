@@ -171,8 +171,9 @@ void Bai7() {
 	int n, m;
 	do
 	{
-		printf("Nhap vao ma tran nxm(n,m<20):");
-		scanf("%dx%d", &n, &m);
+		printf("Nhap vao ma tran n(n<20):");
+		scanf("%d", &n);
+		m = n;
 	} while (n < 0 && m < 0);
 	int maTran[20][20];
 	for (int x = 0; x < sizeof(maTran) / sizeof(maTran[0]); x++)
@@ -186,25 +187,49 @@ void Bai7() {
 		int y = 0;
 		do
 		{
-
 			int ip = scanf("%d%c", &maTran[x][y], &stream); // 1_2_3.. \n=break
 			y++;
 		} while (stream != '\n');
 
 	}
-	printf("Gia tri tren duong cheo chinh: ");
-	for (int x = 0; x < n; x++)
-	{
-		printf("\nO so %dx%d: %d", x + 1, x + 1, maTran[x][x]);
-	}
+	
+	int det = 0;
+	for (int x = 0; x < n; x++)det += maTran[x][x];
+	for (int x = n-1; x >= 0; x--)det -= maTran[n-1-x][x];
+	printf("Do chenh lech tuyet doi: %d",abs(det));
 }
 int main()
 {
-	Bai6();
-	Bai5();
-	Bai4();
-	Bai3();
-	Bai2();
-	Bai1();
+	int choose;
+	printf("Chon bai can chay: ")
+	scanf("%d", &choose);
+	switch (choose)
+	{
+	case 1:
+		Bai1();
+		break;
+	case 2:
+		Bai2();
+		break;
+	case 3:
+		Bai3();
+		break;
+	case 4:
+		Bai4();
+		break;
+	case 5:
+		Bai5();
+		break;
+	case 6:	
+		Bai6();
+		break;
+	case 7:	
+		Bai7();
+		break;
+	default:
+		printf("Khong co bai nay");
+		break;
+	}
+	return 0;
 }
 
