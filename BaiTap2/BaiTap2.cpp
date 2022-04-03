@@ -1,78 +1,25 @@
 
-
+#pragma warning(disable:4996)
+#pragma warning(disable:6031)
 #include <iostream>
 #include <math.h>
 #include <string.h>
 #include <conio.h>
 #include <stdbool.h>
+#include <commonmath.h>
 
-#pragma warning(disable:4996)
-#pragma warning(disable:6031)
 //DONE: Nhap vao mang co do dai 5 -> tong 4 so nho nhat va lon nhat
-#pragma region commonmath
-/// <summary>
-/// Find the largest value in a list and return it
-/// </summary>
-/// <param name="*p">The pointer of the first value in list </param>
-/// <param name="n"> Size of the list</param> 
-int findmax(int* p, int n) {
-
-	int max = *p;
-	int* p_ = p;
-	for (int i = 0; i < n; i++)
-	{
-		max = *p_ > max ? *p_ : max;
-		p_++;
-	}
-	return max;
-};
-/// <summary>
-/// Find the smallest value in a list and return it 
-/// </summary>
-/// <param name="*p">The pointer of the first value in list </param>
-/// <param name="n"> Size of the list</param> 
-int findmin(int* p, int n) {
-	int min = *p;
-	int* p_ = p;
-	for (int i = 0; i < n; i++)
-	{
-		min = *p_ < min ? *p_ : min;
-		p_++;
-	}
-	return min;
-};
-void InputArray(int arr[],int n)
-{
-
-	int *index = arr--;
-	for (int i = 0; i < n; i++)
-	{
-		printf("\nNhap gia tri mang[%d]=", i);
-		scanf("%d", index);
-		index++;
-
-	}
-
-
-}
-#pragma endregion
 //Tim tong 4 so lon nhat
 int SumMax(int a[], int n) { 
 	int sum = 0;
-	for (int i = 0; i < n; i++)
-	{
-		sum += a[i] == findmin(a, n) ? 0 : a[i];
-	}
+	for (int i = 0; i < n; i++)sum += a[i] == findmin(a, n) ? 0 : a[i];
 	
 	return sum;
 }
 //Tim tong 4 so nho nhat
 int SumMin(int a[], int n) {
 	int sum = 0;
-	for (int i = 0; i < n; i++)
-	{
-		sum += a[i] == findmax(a, n) ? 0 : a[i];
-	}
+	for (int i = 0; i < n; i++) sum += a[i] == findmax(a, n) ? 0 : a[i];
 	return sum;
 }
 void Bai1() {
@@ -94,6 +41,7 @@ int MaxCount(int a[], int n) {
 //Tim so lan xuat hien so lon nhat trong mang
 void Bai2() {
 	int mang[5];
+	printf("Nhap mang: ");
 	InputArray(mang, 5);
 	printf("So lon nhat la %d", findmax(mang, 5));
 	printf("\nSo lan xuat hien lon nhat trong mang: %d", MaxCount(mang, 5));
@@ -140,23 +88,39 @@ void Bai4() {
 	scanf("%c", &key);
 	FindDuplicate(str, key);
 }
-void Divable(int a[], int b[], int c, int d) {
-	
-	for (int i = 0; i < d; i++)
+int CountDiv(int a, int arr[],int n) {
+	int count = 0;
+	for (int j = 0; j < n; j++)
 	{
-		int div_count = 0;
-		for (int j = 0; j < c; j++)
-		{
-			if (*b % *a == 0)div_count++;
-		}
-		if (div_count == c)
-		{
-			printf("%d chia het cho tat ca cac so trong mang a\n", *b);
-		}
-		b++;
-		a++;
+		if (a % *arr == 0)count++;
+		arr++;
 	}
+	return count;
 }
+int Divable(int a[], int b[], int c, int d) {
+	int count = 0;
+	for (int j = 1; j <= findmax(b,d)/2; j++)
+	{
+		int countDiv_b = 0;
+		if (CountDiv(j,a,c) == c)
+		{
+			for (int i = 0; i < d; i++)
+			{
+				if (*b % j == 0)countDiv_b++;
+				b++;
+			}
+		}
+		if (countDiv_b == d)
+		{
+			printf("So %d thoa man\n", j);
+			count++;
+		}
+		
+	
+	}
+	return count;
+}
+
 void Bai5() {
 	int a[100],b[100],c,d;
 	inputarr:
@@ -167,12 +131,76 @@ void Bai5() {
 		if (a >= b)goto inputarr;
 	InputArray(a, c);
 	InputArray(b, d);
-	Divable(a, b, c, d);
+	printf("Co %d so thoa man dau bai\n", Divable(a, b, c, d));
+}
+void SumSubArray(int arr[], int n, int length,int max,bool consecutive) {
+	int tempArr[12];
+	for (int i = 0; i < n; i++)
+	{
+		int* pointer_1 = arr;
+		int sum = max,sumCount = 0;
+		for (int j = 0; j < (consecutive ? length : n) && sum > 0; j++)
+		{
+			if (sum - *pointer_1 >= 0)
+			{
+				tempArr[sumCount] = *pointer_1;
+				sum -= *pointer_1;
+				sumCount++;
+			}
+			pointer_1++;
+		}
+		if (sum == 0 && sumCount == length)
+		{
+			printf("Mang con [");
+			for (int x = 0; x < length; x++) { printf("%d,", (tempArr[x])); }
+			printf("] co tong bang %d\n", max);
+		}
+		arr++;
+	}
+}
+void Bai6() {
+	int s[100],n, d, m;
+	printf("\n1<= d <= 31, 1<= m <= 12");
+	printf("\nNhap: n d m\n");
+	scanf("%d %d %d", &n, &d, &m);
+	InputArray(s, n, 1, 5);
+	SumSubArray(s, n, m, d, true);
+	
+}
+void Bai7() {
+	int n, m;
+	do
+	{
+		printf("Nhap vao ma tran nxm(n,m<20):");
+		scanf("%dx%d", &n, &m);
+	} while (n < 0 && m < 0);
+	int maTran[20][20];
+	for (int x = 0; x < sizeof(maTran) / sizeof(maTran[0]); x++)
+		for (int y = 0; y < sizeof(maTran)[0] / sizeof(maTran[0][0]); y++)
+			maTran[x][y] = 0;
+	printf("Nhap du lieu theo hang (VD:1 2 3 4..):\n");
+	for (int x = 0; x < n; x++)
+	{
+		printf("Hang %d: ", x + 1);
+		char stream;
+		int y = 0;
+		do
+		{
 
+			int ip = scanf("%d%c", &maTran[x][y], &stream); // 1_2_3.. \n=break
+			y++;
+		} while (stream != '\n');
 
+	}
+	printf("Gia tri tren duong cheo chinh: ");
+	for (int x = 0; x < n; x++)
+	{
+		printf("\nO so %dx%d: %d", x + 1, x + 1, maTran[x][x]);
+	}
 }
 int main()
 {
+	Bai6();
 	Bai5();
 	Bai4();
 	Bai3();

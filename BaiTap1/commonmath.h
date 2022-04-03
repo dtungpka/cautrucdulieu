@@ -60,5 +60,29 @@ double findaverage(int* p[], int n) {
 	}
 	return sum / n;
 };
+void InputArray(int arr[], int n)
+{
+	int* index = arr--;
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nNhap gia tri mang[%d]=", i);
+		scanf("%d", index);
+		index++;
+	}
+}
+void InputArray(int arr[], int n, int minVal, int maxVal)
+{
+	int* index = arr--;
+	for (int i = 0; i < n; i++)
+	{
+		do
+		{
+			printf("\nNhap gia tri mang[%d]=", i);
+			scanf("%d", index);
+			if (minVal > *index || maxVal < *index)printf("Gia tri da nhap khong hop le! (%d < mang[%d] < %d)", minVal, i, maxVal);
+		} while (minVal > *index || maxVal < *index);
+		index++;
+	}
+}
 
 
