@@ -1,19 +1,92 @@
 
 #pragma warning(disable:4996)
 #pragma warning(disable:6031)
-#include <iostream>
+#include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <conio.h>
 #include <stdbool.h>
-#include <commonmath.h>
+#include <stdlib.h>
+#pragma region commonmath
+/*
+Author: Duong Tung - AIRB - PKA
+Date: 02/04/2022
+*/
 
+/// <summary>
+/// Find the largest value in a list and return it
+/// </summary>
+/// <param name="*p">The pointer of the first value in list </param>
+/// <param name="n"> Size of the list</param> 
+int findmax(int *p,int n) {
+
+	int max = *p;
+	int* p_ = p;
+	for (int i = 0; i < n; i++)
+	{
+		max = *p_ > max ? *p_ : max;
+		p_++;
+	}
+	return max;
+};
+/// <summary>
+/// Find the smallest value in a list and return it 
+/// </summary>
+/// <param name="*p">The pointer of the first value in list </param>
+/// <param name="n"> Size of the list</param> 
+int findmin(int* p,int n) {
+	int min = *p;
+	int* p_ = p;
+	for (int i = 0; i < n; i++)
+	{
+		min = *p_ < min ? *p_ : min;
+		p_++;
+	}
+	return min;
+};
+
+/// <summary>
+/// Fill the array with user input value
+/// </summary>
+/// <param name="arr:">the array to fill</param>
+/// <param name="n:">length of the array </param>
+void InputArray(int arr[], int n)
+{
+	int* index = arr--;
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nNhap gia tri [%d]=", i);
+		scanf("%d", index);
+		index++;
+	}
+}
+/// <summary>
+/// Fill the array with user input value
+/// </summary>
+/// <param name="arr:">the array to fill</param>
+/// <param name="n:">length of the array </param>
+/// <param name="minVal(Optional):">The minimum value for each input </param>
+/// <param name="maxVal(Optional):">The maximum value for each input </param>
+void InputArray2(int arr[], int n, int minVal, int maxVal)
+{
+	int* index = arr--;
+	for (int i = 0; i < n; i++)
+	{
+		do
+		{
+			printf("\nNhap gia tri [%d]=", i);
+			scanf("%d", index);
+			if (minVal > *index || maxVal < *index)printf("Gia tri da nhap khong hop le! (%d < [%d] < %d)", minVal, i, maxVal);
+		} while (minVal > *index || maxVal < *index);
+		index++;
+	}
+}
+#pragma endregion
 //DONE: Nhap vao mang co do dai 5 -> tong 4 so nho nhat va lon nhat
 //Tim tong 4 so lon nhat
 int SumMax(int a[], int n) { 
 	int sum = 0;
 	for (int i = 0; i < n; i++)sum += a[i] == findmin(a, n) ? 0 : a[i];
-	
 	return sum;
 }
 //Tim tong 4 so nho nhat
@@ -29,7 +102,6 @@ void Bai1() {
 	printf("\nTong 4 so nho nhat trong mang: %d", SumMin(mang, 5));
 
 }
-
 
 int MaxCount(int a[], int n) {
 	int count = 0;
@@ -48,58 +120,39 @@ void Bai2() {
 	printf("\nSo lan xuat hien lon nhat trong mang: %d", MaxCount(mang, 5));
 
 }
-
-
-
-
-
 void ArrayRatio(int arr[], int n,float result[]) {
-	int tempArr[3] = { 0 ,0 , 0 }; // dem so 0 <...
-	//	  temp=	     [0] [1] [2] ....
-	for (int i = 0; i < n; i++)tempArr[arr[i] > 0 ? 2 : arr[i] < 0 ? 0 : 1]++;
+	int tempArr[3] = { 0,0,0 };
+	for (int i = 0; i < n; i++)
+	{
+		int temp = *arr > 0 ? 2 : *arr < 0 ? 0 : 1; // 1 | 0 | -1
+		tempArr[temp] += 1;
+		arr++;
+	}
 	for (int i = 0; i < 3; i++)*(result++) = (float)tempArr[i]/n;
 }
 
-
-
-
-// tinh ti le giua duong am,0
-//Tao mot mang moi [-1, 0, 1]
 void Bai3() {
-	int mang[100],n;
+	int mang[1000];
+	int n;
 	float ans[3];
 	printf("Nhap kich thuoc mang n=");
 	scanf("%d", &n);
-	//InputArray(mang, n);
-	for (int i = 0; i < n; i++)
-	{
-		printf("Nhap so trong mang [%d]=", i);
-		scanf("%d", &mang[i]);
-	}
-
+	InputArray(mang, n);
 	ArrayRatio(mang, n, ans);
-	printf("Ti le giua cac gia tri trong mang:\nNho hon 0: %0.1f %%\nBang 0: %0.1f %%\nLon hon 0: %0.1f %%\n ",ans[0],ans[1],ans[2]);
+	printf("Ti le giua cac gia tri trong mang:\nNho hon 0: %0.1f \nBang 0: %0.1f \nLon hon 0: %0.1f \n ",ans[0],ans[1],ans[2]);
 }
-
-
-
-
 void FindDuplicate(char str[], char value) {
 	int count=0;
-	int mangKiTu[100];
 	for (int i = 0; i < strlen(str); i++)
 	{
 		if (value == str[i])
 		{
 			printf("Ki tu '%c' xuat hien tai vi tri %d\n", value, i+1);
-			mangKiTu[count] = i;
 			count++;
 		}
 	}
 	printf("Co tat ca %d ki tu '%c' trong cau \"%s\"\n", count, value,str);
 }
-
-
 void Bai4() {
 	fflush(stdin);
 	char str[] = "lua nep la lua nep lang";
@@ -108,26 +161,18 @@ void Bai4() {
 	scanf("%c", &key);
 	FindDuplicate(str, key);
 }
-
-
-
-
-
-
-
-// Chia het cho mang a
-int CountDiv(int a, int arr[],int n) { //a = so can phai chia, arr = mang (con tro), n do dai arr
+int CountDiv(int a, int arr[],int n) {
 	int count = 0;
-	for (int j = 0; j < n; j++)if (a % arr[j] == 0)count++;
+	for (int j = 0; j < n; j++)
+	{
+		if (a % *arr == 0)count++;
+		arr++;
+	}
 	return count;
 }
-//if count == n
-
-
-//b chia het 
-int Divable(int a[], int b[], int c, int d) { // a,b = mang, c,d = do dai a,b
+int Divable(int a[], int b[], int c, int d) {
 	int count = 0;
-	for (int j = 1; j <= findmax(b,d); j++) //chi can lap den so lon nhat trong b => /2
+	for (int j = 1; j <= findmax(b,d)/2; j++)
 	{
 		int countDiv_b = 0;
 		if (CountDiv(j,a,c) == c)
@@ -143,12 +188,12 @@ int Divable(int a[], int b[], int c, int d) { // a,b = mang, c,d = do dai a,b
 			printf("So %d thoa man\n", j);
 			count++;
 		}
+		
+	
 	}
 	return count;
 }
-//tao mang a, mang b, do dai a < b; TM:
-// - So bat ki: chia het cho tat ca cac so trong a[]
-// - So trong mang b chia het cho no
+
 void Bai5() {
 	int a[100],b[100],c,d;
 	inputarr:
@@ -156,26 +201,19 @@ void Bai5() {
 	scanf("%d", &c);
 	printf("Nhap kich thuoc b: ");
 	scanf("%d", &d);
-		if (c >= d)goto inputarr;
+		if (a >= b)goto inputarr;
 	InputArray(a, c);
 	InputArray(b, d);
-	/*for (int i = 0; i < n; i++)
-	{
-		printf("Nhap so trong mang [%d]=", i);
-		scanf("%d", &mang[i]);
-	}*/
 	printf("Co %d so thoa man dau bai\n", Divable(a, b, c, d));
 }
 
-
-
-void SumSubArray(int arr[], int n, int subLength,int max,bool consecutive) {
+void SumSubArray(int arr[], int n, int length,int max,bool consecutive = true) {
 	int tempArr[12];
 	for (int i = 0; i < n; i++)
 	{
 		int* pointer_1 = arr;
 		int sum = max,sumCount = 0;
-		for (int j = 0; j < (consecutive ? subLength : n) && sum > 0; j++)
+		for (int j = 0; j < (consecutive ? length : n) && sum > 0; j++)
 		{
 			if (sum - *pointer_1 >= 0)
 			{
@@ -185,10 +223,10 @@ void SumSubArray(int arr[], int n, int subLength,int max,bool consecutive) {
 			}
 			pointer_1++;
 		}
-		if (sum == 0 && sumCount == subLength)
+		if (sum == 0 && sumCount == length)
 		{
 			printf("Mang con [");
-			for (int x = 0; x < subLength; x++) { printf("%d,", (tempArr[x])); }
+			for (int x = 0; x < length; x++) { printf("%d,", (tempArr[x])); }
 			printf("] co tong bang %d\n", max);
 		}
 		arr++;
@@ -199,7 +237,7 @@ void Bai6() {
 	printf("\n1<= d <= 31, 1<= m <= 12");
 	printf("\nNhap: n d m\n");
 	scanf("%d %d %d", &n, &d, &m);
-	InputArray(s, n, 1, 5);
+	InputArray2(s, n, 1, 5);
 	SumSubArray(s, n, m, d, true);
 	
 }
