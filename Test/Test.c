@@ -1,39 +1,36 @@
-#include <stdio.h>
-#include <conio.h>
-#pragma warning(disable:6031)
 #pragma warning(disable:4996)
-int main() {
-	int t;
-	int R, C,j,i;
-	scanf("%d", &t);
-	for ( t; t > 0; t--)
-	{
-		fflush(stdin);
-		scanf("%d %d", &R, &C);
-		for (int a = 0; a < C; a++)printf(a < 2 ? "." : a % 2 == 0 ? "+" : "-");
-		for ( j = 0; j < R; j++)
-		{
-			printf("\n");
-			if (j % 2 ==0)
-			{
-				if(j==1)printf("|");
-				for ( i = 0; i < C; i++)
-				{
-					printf( i == 0 && j == 0 ? "." : ".|");
-				}
-				
-				
-			}
-			else {
-				for ( i = 0; i < C; i++)
-				{
-					printf(i % 2 == 0 ? "+" : "-");
-				}
-			}
-			
-		}
-		
-	}
+#pragma warning(disable:6031)
+#pragma warning(disable:6011)
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+void printNode(struct Node* startNode) {
+    while (startNode != NULL)
+    {
+        printf("%d \n", startNode->data);
+        startNode = startNode->next;
+    }
+}
+void push(struct Node** nextNode, int data) { //Obj node
+    struct Node* backNode = (struct Node*)malloc(sizeof(struct Node));
+    backNode->data = data;
+    backNode->next = *nextNode; // pointer 
+    *nextNode = backNode; // change
+}
 
+int main()
+{
+    int length = 10;
+    struct Node* startNode = (struct Node*)malloc(sizeof(struct Node));
+    startNode->data = 0;
+    for (int  i = 0; i < length; i++)
+    {
+        push(&startNode, rand() % 100);
+    }
+   
+    printNode(startNode);
 
 }
