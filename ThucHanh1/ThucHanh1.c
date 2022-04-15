@@ -7,6 +7,7 @@
 #include <math.h>
 #define MAX_ROWS 100
 #define MAX_COLUMNS 100
+#define RANDOM_RANGE 100
 void matrixMinMax(int matrix[][MAX_COLUMNS], int m, int n, int* d_min, int* d_max) {
 	int min = matrix[0][0], max = matrix[0][0];
 	for (int x = 0; x < m; x++)
@@ -28,7 +29,7 @@ void GetMatrix(int matrix[][MAX_COLUMNS], int m, int n,bool random) {
 		int y = 0;
 		do
 		{
-			int ip = random ? rand()%20 : scanf("%d%c", &matrix[x][y], &stream); // 1_2_3.. \n=break
+			int ip = random ? rand()% RANDOM_RANGE : scanf("%d%c", &matrix[x][y], &stream); // 1_2_3.. \n=break
 			if (random)matrix[x][y] = ip;
 			y++;
 		} while ((stream != '\n'&&!random) || y < n);
