@@ -101,7 +101,7 @@ void Bai2() {
 	int count = 0;
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = i; j < n; ++j)
+		for (int j = i+1; j < n; ++j)
 		{
 			if ((arr[i]+arr[j])%d == 0)
 			{
@@ -223,10 +223,11 @@ void Bai5() {
 int arr2[MAX_COLS];
 int main() {
 	StartTimer();
-	Bai5();
 	int arr[20];
-	Bai2();
 	InputArray(arr, 5);
 	rotateArray(arr, 5, 2);
-	
+	Bai2();
+	Bai3();
+	Bai4();
+	Bai5();
 }
