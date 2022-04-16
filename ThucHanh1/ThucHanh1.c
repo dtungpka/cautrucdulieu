@@ -135,7 +135,7 @@ int sumEvenMatrix(int matrix[][MAX_COLUMNS], int m, int n)
 		 }
 	 }
  }
- int SortMatrix(int matrix[][MAX_COLUMNS], int matrixResult[][MAX_COLUMNS], int m, int n,int offsetX,int offsetY) {
+ int SortMatrix(int matrix[][3], int matrixResult[][MAX_COLUMNS], int m, int n,int offsetX,int offsetY) {
 	 int tempArray[MAX_ROWS * MAX_COLUMNS];
 	 int temp;
 	 for (int x = offsetX; x < m; x++) //Flatten matrix
@@ -155,6 +155,7 @@ int sumEvenMatrix(int matrix[][MAX_COLUMNS], int m, int n)
 	 }
 
  }
+
  void SortRow(int matrix[][MAX_COLUMNS], int matrixResult[][MAX_COLUMNS], int m, int n, int row) {
 	 int tempArr[MAX_ROWS];
 	 for (int i = 0; i < m; i++)

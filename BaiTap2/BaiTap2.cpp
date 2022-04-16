@@ -169,7 +169,7 @@ void Bai5() {
 
 
 
-void SumSubArray(int arr[], int n, int subLength,int max,bool consecutive) {
+void SumSubArray(int arr[], int n, int subLength,int max,bool consecutive = false) {
 	int tempArr[12];
 	for (int i = 0; i < n; i++)
 	{
