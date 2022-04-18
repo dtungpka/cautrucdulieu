@@ -113,6 +113,7 @@ void Bai2() {
 	PrintTime(false);
 
 }
+
 void Occurrences(int arr[],int n, int resultArr[][100]) {
 	for (int i = 0; i < n; i++)
 	{
@@ -142,7 +143,7 @@ void Bai3() {
 	int temp1 = arr[0], temp2 = arr[0],i=0;
 	do
 	{
-		if (temp2 > arrCount[1][i])
+		if (temp2 >= arrCount[1][i])
 		{
 			temp1 = arrCount[0][i];
 			temp2 = arrCount[1][i];
@@ -164,34 +165,59 @@ void Bai4() {
 		int i = 0;
 		do
 		{
-			int sock = arrCount[0][i] - arrCount[1][i] + 1;
-			printf("Co %d doi tat mau %d, du ra %d chiec tat\n", sock / 2, arrCount[0][i], sock % 2);
+			int socks = arrCount[0][i] - arrCount[1][i] + 1;
+			printf("Co %d doi tat mau %d, du ra %d chiec tat\n", socks / 2, arrCount[0][i], socks % 2);
 			i++;
 		} while (arrCount[0][i] > -100000);
 
 		PrintTime(true);
 }
-void SubArrayLength(int arr[], int n,int arrSubIndex[2][MAX_COLS],int delta) // arrSubIndex: index - length
+//void SubArrayLength(int arr[], int n,int arrSubIndex[2][MAX_COLS],int delta) // arrSubIndex: index - length
+//{
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = i; j < n && abs(arr[i] - arr[j]) <= delta ; j++)
+//		{
+//			int k = -1;
+//		forward:
+//			k++;
+//			if (arrSubIndex[0][k] < -10000) {
+//				arrSubIndex[0][k] = i;
+//				arrSubIndex[1][k] = 1;
+//			}
+//			else if (arrSubIndex[0][k] == i)
+//			{
+//				arrSubIndex[1][k]++;
+//			}
+//			else goto forward;
+//		}
+//	}
+//}
+void SubArrayLength(int arr[], int n, int arrSubIndex[2][MAX_COLS], int delta) // arrSubIndex: index - length
 {
 	for (int i = 0; i < n; i++)
-	{
-		for (int j = i; j < n && abs(arr[i] - arr[j]) <= delta ; j++)
 		{
-			int k = -1;
-		forward:
-			k++;
-			if (arrSubIndex[0][k] < -10000) {
-				arrSubIndex[0][k] = i;
-				arrSubIndex[1][k] = 1;
-			}
-			else if (arrSubIndex[0][k] == i)
+			for (int j = 0; j < n ; j++)
 			{
-				arrSubIndex[1][k]++;
+				if (abs(arr[i] - arr[j]) <= delta)
+				{
+					int k = -1;
+				forward:
+					k++;
+					if (arrSubIndex[0][k] < -10000) {
+						arrSubIndex[0][k] = i;
+						arrSubIndex[1][k] = 1;
+					}
+					else if (arrSubIndex[0][k] == i)
+					{
+						arrSubIndex[1][k]++;
+					}
+					else goto forward;
+				}
 			}
-			else goto forward;
 		}
-	}
-}
+		}
+//Lap het ca Array 
 void Bai5() {
 	int n;
 	int arr[MAX_COLS], arrSubIndex[2][MAX_COLS];
@@ -201,7 +227,7 @@ void Bai5() {
 	InputArray(arr, n);
 	PrintTime(true);
 	SubArrayLength(arr, n, arrSubIndex,delta);
-	int temp1 = arrSubIndex[0][0], temp2 = arrSubIndex[1][0], i = 0;
+	int temp1 = arrSubIndex[0][0], temp2 = arrSubIndex[1][0], i = 0; // Khoi tao: temp2 = do dai arrSubIndex[1][i] lap qua cac do dai
 	do
 	{
 		if (temp2 < arrSubIndex[1][i])
@@ -213,21 +239,26 @@ void Bai5() {
 	} while (arrSubIndex[0][i] > -100000);
 
 	printf("Mang con dai nhat la: [");
-	for (int i = 0; i < temp2; i++)
+	int count = 0;
+	for (int i = 0; i < n; i++)
 	{
-		printf("%d,", arr[temp1 + i]);
+		if (abs(arr[i]-temp1) <= delta)
+		{
+			printf("%d,", arr[temp1 + i]);
+			count++;
+		}
 	}
-	printf("]\n");
+	printf("],co do dai la %d\n",count);
 	PrintTime(true);
 }
 int arr2[MAX_COLS];
 int main() {
 	StartTimer();
 	int arr[20];
-	InputArray(arr, 5);
+	/*InputArray(arr, 5);
 	rotateArray(arr, 5, 2);
-	Bai2();
-	Bai3();
-	Bai4();
+	Bai2();*/
+	Bai3();/*
+	Bai4();*/
 	Bai5();
 }
