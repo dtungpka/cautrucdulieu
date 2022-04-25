@@ -4,51 +4,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct node {
-	int data;
+	char data;
 	struct node* next;
-} *Node;
+} *String;
 //DONE: Insert function 
 
-int Append(Node start, int index,int data) {
-	Node tempNode = (Node)malloc(sizeof(Node));
+void AppendChar(String start, int index, char data) {
+	String tempNode = (String)malloc(sizeof(String));
 	for (int i = 0; index > -1 ? i < index : start->next != NULL; i++)start = start->next;
-	tempNode->next = start->next == NULL ? NULL :start->next;
+	tempNode->next = start->next == NULL ? NULL : start->next;
 	tempNode->data = data;
 	start->next = tempNode;
 }
-
+void Append(String str1, String str2) {
+	for (int i = 0; str1->next != NULL; i++)str1 = str1->next;
+	str1->next = str2;
+}
 //DONE: Find function
 
-Node Find(Node start, int data) {
-	for (Node n = start; n != NULL ; n = n->next)if (n->data == data)return n;
+String Find(String start, char data) {
+	for (String n = start; n != NULL; n = n->next)if (n->data == data)return n;
 	return NULL;
 }
 
 //DONE: Index function -> pointer
-Node Index(Node start, int index) {
-	for (int i = 0; i <= index && start->next != NULL; i++) { if (start->next != NULL)start = start->next; 
-	if (i == index)return start;}
+String Index(String start, int index) {
+	for (int i = 0; i <= index && start->next != NULL; i++) {
+		if (start->next != NULL)start = start->next;
+		if (i == index)return start;
+	}
 	return NULL;
-	
+
 }
 
 //DONE: Delete function (pop, delete = find)
 
-int Pop(Node start, int index) {
+int Pop(String start, int index) {
 	for (int i = 0; i <= index && start->next != NULL; i++) {
-		if (i == index-1) {
+		if (i == index - 1) {
 
 			start->next = start->next->next;
 			//free(start);
 			return 1;
 		}
 		if (start->next != NULL)start = start->next;
-		
+
 	}
 	return 0;
 }
-int Remove(Node start, Node item){
-	for (Node temp = start; temp->next != NULL; temp = temp->next)
+int Remove(String start, String item) {
+	for (String temp = start; temp->next != NULL; temp = temp->next)
 	{
 		if (temp->next == item) {
 			temp->next = item->next;
@@ -62,9 +67,9 @@ int Remove(Node start, Node item){
 /// <summary>
 /// Print linked list
 /// </summary>
-void Print(Node start) {
-	printf("\nLinked list node: ");
-	for (Node node = start; node != NULL; node = node->next)printf("%d ", node->data);
+
+void Print(String start) {
+	for (String node = start; node != NULL; node = node->next)printf("%c", node->data);
 }
 
 
@@ -74,24 +79,24 @@ void Print(Node start) {
 /// <param name="length:">length of the list</param>
 /// <param name="randRange:"> max random input, 0 to manually type</param>
 /// <returns>Return the first node</returns>
-Node LinkedList(int length, int randRange) {
-	
+String LinkedList(int length, int randRange) {
+
 	int inx = 0;
-	Node nodeZero = (Node)malloc(sizeof(Node));
+	String nodeZero = (String)malloc(sizeof(String));
 	nodeZero->next = NULL;
 
 	if (randRange == 0) { printf("[%d]:", inx++); scanf("%d", &nodeZero->data); }
 	else nodeZero->data = rand() % randRange;
 	if (length > 1) {
-		Node nodeOne = (Node)malloc(sizeof(Node));
+		String nodeOne = (String)malloc(sizeof(String));
 		nodeZero->next = nodeOne;
 		nodeOne->next = NULL;
 		if (randRange == 0) { printf("[%d]:", inx++); scanf("%d", &nodeOne->data); }
 		else nodeOne->data = rand() % randRange;
 
-		for (int i = 0; i < length-2; i++)
+		for (int i = 0; i < length - 2; i++)
 		{
-			Node nodeN = (Node)malloc(sizeof(Node));
+			String nodeN = (String)malloc(sizeof(String));
 			if (randRange == 0) { printf("[%d]:", inx++); scanf("%d", &nodeN->data); }
 			else nodeN->data = rand() % randRange;
 			nodeOne->next = nodeN;
@@ -101,3 +106,27 @@ Node LinkedList(int length, int randRange) {
 	}
 	return nodeZero;
 }
+String GetString() {
+	char stream;
+	String linkedList = LinkedList(0, 1);
+	do
+	{
+		stream = getchar();
+		if (stream != '\n')AppendChar(linkedList, -1, stream);
+	} while (stream != '\n');
+	fflush(stdin);
+	return linkedList;
+
+}
+String ToString(char c[]) {
+	char stream;
+	String linkedList = LinkedList(0, 1);
+	do
+	{
+		stream = *c;
+		if (stream != '\0')AppendChar(linkedList, -1, stream);
+		c++;
+	} while (stream != '\0');
+	return linkedList;
+}
+
