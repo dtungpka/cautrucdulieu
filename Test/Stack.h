@@ -4,9 +4,7 @@
 #ifndef STACK_MAX
 #define STACK_MAX 100
 #endif // !STACK_MAX
-#ifndef LINKED_STACK && ARRAY_STACK
-#define LINKED_STACK
-#endif // !LINKED_QUEUE && ARRAY_QUEUE
+
 #include<stdio.h>
 #include <stdlib.h>
 

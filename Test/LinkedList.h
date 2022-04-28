@@ -47,6 +47,7 @@ int Pop(Node start, int index) {
 	}
 	return 0;
 }
+
 int Remove(Node start, Node item){
 	for (Node temp = start; temp->next != NULL; temp = temp->next)
 	{

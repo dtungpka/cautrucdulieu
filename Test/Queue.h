@@ -7,9 +7,7 @@
 
 #include<stdio.h>
 #include <stdlib.h>
-#ifndef LINKED_QUEUE && ARRAY_QUEUE
-#define LINKED_QUEUE
-#endif // !LINKED_QUEUE && ARRAY_QUEUE
+
 
 #ifdef ARRAY_QUEUE
 typedef struct {
@@ -39,14 +37,17 @@ int Get(Queue queue) {
 }
 
 #endif // ARRAY_QUEUE
-#ifdef LINKED_QUEUE
+#ifndef ARRAY_QUEUE
 typedef struct node {
 	int data;
 	struct node* next;
 } *Node;
+
+
 typedef struct {
 	Node head, tail; int count;
 } *Queue;
+
 Queue InitializeQueue() {
 	Queue newqueue = (Queue)malloc(sizeof(Queue));
 	newqueue->head = newqueue->tail = NULL;
@@ -54,8 +55,7 @@ Queue InitializeQueue() {
 	return newqueue;
 }
 void Put(Queue queue,int data) {
-	Node p;
-	p = (Node)malloc(sizeof(Node));
+	Node p = (Node)malloc(sizeof(Node));
 	p->data = data;
 	p->next = NULL;
 	queue->count++;
@@ -69,7 +69,7 @@ int Get(Queue queue) {
 	int tmp = (int)queue->head->data;
 	Node tmpNode = queue->head;
 	queue->head = queue->head->next;
-	//free(tmpNode);
+	free(tmpNode);
 	return tmp;
 }
 #endif // LINKED_QUEUE
