@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{19fa21c0-a065-406b-8d3a-30a8620f5322}</ProjectGuid>
-    <RootNamespace>Test</RootNamespace>
+    <ProjectGuid>{8bd8853f-1171-47e5-b5c4-0654ebffdc08}</ProjectGuid>
+    <RootNamespace>GasStation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,17 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Test.c" />
-    <ClCompile Include="test2.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BetterString.h" />
-    <ClInclude Include="Stack.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Queue.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Text.txt" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
