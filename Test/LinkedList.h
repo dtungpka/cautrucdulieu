@@ -3,18 +3,21 @@
 #pragma warning(disable:6011)
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct node {
+typedef struct node{
 	int data;
 	struct node* next;
 } *Node;
 //DONE: Insert function 
 
-int Append(Node start, int index,int data) {
+
+int Append(Node *start, int index,int data) {
 	Node tempNode = (Node)malloc(sizeof(Node));
-	for (int i = 0; index > -1 ? i < index : start->next != NULL; i++)start = start->next;
-	tempNode->next = start->next == NULL ? NULL :start->next;
 	tempNode->data = data;
-	start->next = tempNode;
+	if (index == 0) { tempNode->next = (*start); (*start) = tempNode; return; }
+	Node tmp = *start;
+	for (int i = 1; index > -1 ? i < index : tmp->next != NULL; i++)tmp = tmp->next;
+	tempNode->next = tmp->next == NULL ? NULL : tmp->next;
+	tmp->next = tempNode;
 }
 
 //DONE: Find function

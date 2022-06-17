@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{19fa21c0-a065-406b-8d3a-30a8620f5322}</ProjectGuid>
-    <RootNamespace>Test</RootNamespace>
+    <ProjectGuid>{dd72d93b-2cd5-45e8-bcb5-06b6b9f7c96b}</ProjectGuid>
+    <RootNamespace>BSTAVL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,16 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Test.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BetterString.h" />
-    <ClInclude Include="Stack.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Queue.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Text.txt" />
+    <ClCompile Include="..\TestCpp\Cay 2 shit AVL.c" />
+    <ClCompile Include="BST AVL2.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

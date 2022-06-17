@@ -3,7 +3,7 @@
 #pragma warning(disable:6031)
 #pragma warning(disable:6011)
 #include <stdio.h>
-#define TIEN_XANG 30000
+#include <time.h>
 #define MAX_ARRAY 10001
 int arr[2][MAX_ARRAY];
 int main() {
@@ -47,17 +47,18 @@ int main() {
 				}
 			}
 		result:
-			if (ans != -1) {
-				printf("Test case #%d: Xe co the di tu tram gan nhat %d va con lai %d xang\n", testCase, ans, remainGas);
 
+			
+			if (ans != -1) {
+				printf("\rTest case #%d: Xe co the di tu tram gan nhat %d va con lai %d xang", testCase, ans, remainGas);
 			}
 			else
 			{
-				printf("Test case #%d: Xe khong the di qua het tram xang!\n", testCase);
+				printf("\rTest case #%d: Xe khong the di qua het tram xang!", testCase);
 			}
 			testCase++;
-
-
+			int lastClock = clock();
+			while (clock() < lastClock + CLOCKS_PER_SEC / 2);
 
 
 

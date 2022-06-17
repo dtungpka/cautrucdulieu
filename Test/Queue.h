@@ -118,6 +118,7 @@ void ReverseQueue(Queue *queue) {
 	}
 	*queue = qnew;
 }
+#pragma region deleteeeeeee
 void SwapNode(Node* start, int index1, int index2) {
 	if (index2 < index1) { int tmp = index1; index1 = index2; index2 = tmp; }
 	if (index1 == index2)return;
@@ -151,11 +152,6 @@ void Sort(Queue queue) {
 			int b = Index(queue->head, j + 1)->data;
 			int tmpcount = queue->count;
 			Node tmpNode = queue->head;
-			printf("\n");
-			while (queue->count > 0)
-			{
-				printf(" %d ", get_(queue));
-			}
 			queue->head = tmpNode;
 			queue->count = tmpcount;
 			if (a > b)
@@ -163,4 +159,5 @@ void Sort(Queue queue) {
 
 		}
 }
+#pragma endregion
 #endif // LINKED_QUEUE

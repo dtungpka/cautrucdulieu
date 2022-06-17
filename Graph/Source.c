@@ -1,0 +1,2 @@
+int* Graph;
+int* Edges;
